@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - hops@localhost" uuid="1db91ec3-3387-4c89-b569-c4ee65c17b1a">
+    <database-info product="MySQL" version="5.6.26" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <database-model serializer="dbm" rdbms="MYSQL" format-version="2.2">
+      <schema id="1" name="hops"/>
+      <table id="2" parent="1" name="flavors"/>
+      <table id="3" parent="1" name="hops"/>
+      <table id="4" parent="1" name="users"/>
+      <column id="5" parent="2" name="id">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="6" parent="2" name="flavor">
+        <mandatory>1</mandatory>
+        <data-type>varchar(20)</data-type>
+      </column>
+      <key id="7" parent="2" name="PRIMARY">
+        <columns>id</columns>
+        <primary>1</primary>
+      </key>
+      <column id="8" parent="3" name="ID">
+        <mandatory>1</mandatory>
+        <data-type>int(11)</data-type>
+      </column>
+      <column id="9" parent="3" name="HopName">
+        <mandatory>1</mandatory>
+        <data-type>longtext</data-type>
+      </column>
+      <column id="10" parent="3" name="AlphaAcid">
+        <data-type>int(11)</data-type>
+      </column>
+      <index id="11" parent="3" name="ID">
+        <columns>ID</columns>
+        <unique>1</unique>
+      </index>
+      <key id="12" parent="3" name="ID">
+        <columns>ID</columns>
+        <underlying-index>ID</underlying-index>
+      </key>
+      <key id="13" parent="3" name="PRIMARY">
+        <columns>ID</columns>
+        <primary>1</primary>
+      </key>
+      <column id="14" parent="4" name="user_id">
+        <mandatory>1</mandatory>
+        <data-type>int(5)</data-type>
+      </column>
+      <column id="15" parent="4" name="username">
+        <mandatory>1</mandatory>
+        <data-type>varchar(25)</data-type>
+      </column>
+      <column id="16" parent="4" name="email">
+        <mandatory>1</mandatory>
+        <data-type>varchar(35)</data-type>
+      </column>
+      <column id="17" parent="4" name="password">
+        <mandatory>1</mandatory>
+        <data-type>varchar(255)</data-type>
+      </column>
+      <column id="18" parent="4" name="mailinglist">
+        <mandatory>1</mandatory>
+        <data-type>tinyint(1)</data-type>
+        <default-expression>&apos;0&apos;</default-expression>
+      </column>
+      <index id="19" parent="4" name="email">
+        <columns>email</columns>
+        <unique>1</unique>
+      </index>
+      <key id="20" parent="4" name="email">
+        <columns>email</columns>
+        <underlying-index>email</underlying-index>
+      </key>
+      <key id="21" parent="4" name="PRIMARY">
+        <columns>user_id</columns>
+        <primary>1</primary>
+      </key>
+    </database-model>
+  </data-source>
+</component>
