@@ -1,0 +1,10 @@
+User table structure for MySQL
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `user_id` int(5) NOT NULL,
+  `username` varchar(25) NOT NULL,
+  `email` varchar(35) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `mailinglist` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+
