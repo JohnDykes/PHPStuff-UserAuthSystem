@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'classloader.php';
 
 $db = new Database();
@@ -19,7 +20,8 @@ if (isset($_POST['signupbtn']) and $db->isConn)
                $currentUser->password,
                $currentUser->mailinglist]);
            if ($registerUser){
-               echo 'Thanks for registering';
+               echo 'Thanks for registering' . '\n';
+               Session::setSessionName($currentUser->username);
                header('location:userlogin.php');
            }
            else{
@@ -37,7 +39,6 @@ if (isset($_POST['signupbtn']) and $db->isConn)
 <head xmlns="http://www.w3.org/1999/html">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="styles.css">
-    <script type="application/javascript" src="myScript.js"></script>
     <title>Register Page</title>
 </head>
 <body>
@@ -47,7 +48,8 @@ if (isset($_POST['signupbtn']) and $db->isConn)
     <input type="email" name="email" placeholder="Your Email" required/>
     <input type="password" name="pass" placeholder="Your Password" required/>
     <label for="mailcheck">Subscribe to our mailing list?</label>
-    <input type="checkbox" name="mailcheck">
+    <input name="mailcheck" value="0" type="hidden">
+    <input type="checkbox" name="mailcheck" value="0">
     <br>
     <input type="submit" name="signupbtn">
 </form>

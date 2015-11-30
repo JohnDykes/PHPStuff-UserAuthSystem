@@ -9,7 +9,5 @@ class User
         $this->email = $email;
         $this->password = password_hash($password, PASSWORD_DEFAULT);
         $this->mailinglist = $mailinglist;
-        $this->mailinglist = 0;
-
     }
 }
