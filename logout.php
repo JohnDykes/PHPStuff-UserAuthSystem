@@ -1,4 +1,6 @@
 <?php
-require_once 'classloader.php';
-Session::destroySession();
+session_start();             //Unset variables and kill session
+session_unset();
+session_destroy();
+
 header('location:userlogin.php');

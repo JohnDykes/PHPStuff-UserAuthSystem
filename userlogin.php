@@ -1,15 +1,16 @@
 <?php
+session_start();
 require_once 'classloader.php';
+
 $db = new Database();
-
-if (isset($_POST['loginbtn']) and $db->isConn){
+if (isset($_POST['loginbtn']) and $db->isConn){ //Is the login button pressed and the database connected?
     try {
-   $selectedUser = $db->getRow('SELECT * FROM users WHERE email = ?' , [($_POST['email'])]);
-        if (!$selectedUser){
+        $selectedUser = $db->getRow('SELECT * FROM users WHERE email = ?' , [($_POST['email'])]); //Pull out a user by their email
+        if (!$selectedUser){ //If a user cannot be found by entered email, prompt again
             echo 'No user exists with the email entered. Please enter a new email or register.';
-
         }
-        elseif (password_verify($_POST['pass'], $selectedUser->password)){
+        elseif (password_verify($_POST['pass'], $selectedUser->password)){ //If the password matches the hash, set some session variables and bring to index
+            Session::setSessionName($selectedUser->username);
             Session::setLoginStatus();
             header('location:index.php');
         }
@@ -18,13 +19,10 @@ if (isset($_POST['loginbtn']) and $db->isConn){
             $db->Disconnect();
         }
     }
-
     catch (PDOException $e){
         echo $e->getMessage();
     }
-
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +33,7 @@ if (isset($_POST['loginbtn']) and $db->isConn){
 </head>
 <p>Please Log in: </p>
 <br>
-<p>Or <a href="register.php">Register</a> </p>
+ <a href="register.php">Register</a>
 <form method="post">
     <input type="text" name="email" placeholder="Your Email" required />
     <input type="password" name="pass" placeholder="Your Password" required />

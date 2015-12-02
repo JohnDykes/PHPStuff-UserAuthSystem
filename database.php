@@ -1,14 +1,14 @@
 <?php
 
-class Database{
+class Database {
     public $isConn;
-    protected $dbase;
+    protected $dbase;             //DB Info needs to be stored in an ini file eventually
     public function __construct($username = 'John', $password = 'password', $options = []){
         $this->isConn = true;
         try{
-            $this->dbase = new PDO('mysql:host=localhost;dbname=hops', $username, $password, $options);
+            $this->dbase = new PDO('mysql:host=localhost;dbname=products', $username, $password, $options);
             $this->dbase->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-            $this->dbase->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+            $this->dbase->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);// Want to fetch objects
         }
         catch (PDOException $e){
             throw new Exception ($e->getMessage());
@@ -20,8 +20,8 @@ class Database{
         $this->isConn = false;
     }
 
-    public function getRow($query, $params = []){
-        try{
+    public function getRow($query, $params = []){       //Basic database functions. Each takes a SQL query and some parameters.
+        try{                                            //PDO Binding to prevent SQL Injection
             $stmt = $this->dbase->prepare($query);
             $stmt->execute($params);
             return $stmt->fetch();

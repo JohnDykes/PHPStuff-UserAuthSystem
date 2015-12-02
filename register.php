@@ -1,37 +1,37 @@
 <?php
 session_start();
 require_once 'classloader.php';
-
 $db = new Database();
-if (isset($_POST['signupbtn']) and $db->isConn)
+if (isset($_POST['signupbtn']) and $db->isConn) //Check to make sure button is pressed and database is connected
 {
-   $currentUser = new User($_POST['uname'],($_POST['email']),($_POST['pass']),($_POST['mailcheck']));
-   try{
-       $userExistsQuery = $db->getRow('SELECT * FROM users WHERE username = ?', [$currentUser->username]);
-       if ($userExistsQuery)
-       {
-           echo 'User Name already exists';
-           die;
-       }
-       else{
-           $registerUser = $db->insertRow('INSERT INTO users (username, email, password, mailinglist) VALUES (?, ?, ?, ?)',
-               [$currentUser->username,
-               $currentUser->email,
-               $currentUser->password,
-               $currentUser->mailinglist]);
-           if ($registerUser){
-               echo 'Thanks for registering' . '\n';
-               Session::setSessionName($currentUser->username);
-               header('location:userlogin.php');
-           }
-           else{
-               echo 'Register Failed';
-           }
-       }
-   }
-   catch (PDOException $e){
-       print_r($e);
-   }
+    $currentUser = new User($_POST['uname'],($_POST['email']),($_POST['pass']),($_POST['mailcheck'])); //Create a new user object with POST values
+    try{
+        $userExistsQuery = $db->getRow('SELECT * FROM users WHERE username = ?', [$currentUser->username]);
+        if ($userExistsQuery)               //Do not allow duplicate usernames
+        {
+            echo 'User Name already exists';
+            die;
+        }
+        else{
+            $registerUser = $db->insertRow('INSERT INTO users (username, email, password, mailinglist) VALUES (?, ?, ?, ?)',
+                [$currentUser->username,
+                    $currentUser->email,
+                    $currentUser->password,          //Insert a new user into the database
+                    $currentUser->mailinglist]);
+            if ($registerUser){                                              //If it works, bring back to the login page for logging in.
+                echo 'Thanks for registering' . '\n';
+                Session::setSessionName($currentUser->username);
+                header('location:userlogin.php');
+                exit;
+            }
+            else{
+                echo 'Register Failed';
+            }
+        }
+    }
+    catch (PDOException $e){
+        print_r($e);
+    }
 }
 ?>
 

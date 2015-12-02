@@ -1,7 +1,9 @@
 <?php
 
 spl_autoload_register(function() {
-    include 'database.php';
-    include 'User.php';
-    include 'Session.php';
+    include_once 'Database.php';
+    include_once 'User.php';
+    include_once 'Session.php';
+    include_once 'Item.php';
+
 });
