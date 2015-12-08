@@ -10,4 +10,5 @@ class User
         $this->password = password_hash($password, PASSWORD_DEFAULT);
         $this->mailinglist = $mailinglist;
     }
+
 }

@@ -12,7 +12,14 @@ if (isset($_POST['loginbtn']) and $db->isConn){ //Is the login button pressed an
         elseif (password_verify($_POST['pass'], $selectedUser->password)){ //If the password matches the hash, set some session variables and bring to index
             Session::setSessionName($selectedUser->username);
             Session::setLoginStatus();
+            if ($_SESSION['sessionName'] == 'john'){   //if the user is an admin bring straight to admin index
+                header('location:adminindex.php');
+                exit;
+            }
+            else{
             header('location:index.php');
+                exit;
+            }
         }
         else{
             echo 'Wrong password';
@@ -33,9 +40,13 @@ if (isset($_POST['loginbtn']) and $db->isConn){ //Is the login button pressed an
 </head>
 <p>Please Log in: </p>
 <br>
- <a href="register.php">Register</a>
+
 <form method="post">
     <input type="text" name="email" placeholder="Your Email" required />
     <input type="password" name="pass" placeholder="Your Password" required />
     <input type="submit" name="loginbtn">
 </form>
+
+<br>
+<br>
+<a href="register.php">Register</a>

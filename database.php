@@ -59,8 +59,15 @@ class Database {
     }
     public function updateRow($query, $params = []){
         $this->insertRow($query, $params);
+        return true;
     }
     public function deleteRow($query, $params = []){
         $this->insertRow($query, $params);
+        return true;
+    }
+    function printr($val){   //Improved printing function with some formatting
+        echo '<pre>';
+        print_r($val);
+        echo  '</pre>';
     }
 }
